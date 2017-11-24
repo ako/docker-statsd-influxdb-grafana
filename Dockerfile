@@ -1,13 +1,13 @@
 FROM ubuntu:16.04
-MAINTAINER Samuele Bistoletti <samuele.bistoletti@gmail.com>
+MAINTAINER Andrej Koelewijn <andrej@koelewijn.net>
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV LANG C.UTF-8
 
 # Default versions
-ENV TELEGRAF_VERSION 1.2.0
-ENV INFLUXDB_VERSION 1.2.0
-ENV GRAFANA_VERSION  4.1.1-1484211277
+ENV TELEGRAF_VERSION 1.4.4-1
+ENV INFLUXDB_VERSION 1.4.2
+ENV GRAFANA_VERSION  4.6.2
 
 # Database Defaults
 ENV INFLUXDB_GRAFANA_DB datasource
@@ -36,6 +36,7 @@ RUN apt-get -y update && \
   mysql-client \
   mysql-server \
   nano \
+  vim \
   net-tools \
   openssh-server \
   supervisor \
@@ -81,7 +82,7 @@ COPY telegraf/telegraf.conf /etc/telegraf/telegraf.conf
 COPY telegraf/init.sh /etc/init.d/telegraf
 
 # Install Grafana
-RUN wget https://grafanarel.s3.amazonaws.com/builds/grafana_${GRAFANA_VERSION}_amd64.deb && \
+RUN wget https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana_${GRAFANA_VERSION}_amd64.deb && \
 	dpkg -i grafana_${GRAFANA_VERSION}_amd64.deb && rm grafana_${GRAFANA_VERSION}_amd64.deb
 
 # Configure Grafana

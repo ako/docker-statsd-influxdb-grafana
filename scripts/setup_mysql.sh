@@ -1,7 +1,8 @@
 #!/bin/bash
 
 echo "=> Starting MySQL ..."
-/etc/init.d/mysql start
+find /var/lib/mysql -type f -exec touch {} \; && service mysql start
+#/etc/init.d/mysql start
 
 sleep 5
 
